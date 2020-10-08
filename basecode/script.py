@@ -259,8 +259,16 @@ mle = testOLERegression(w,Xtest,ytest)
 w_i = learnOLERegression(X_i,y)
 mle_i = testOLERegression(w_i,Xtest_i,ytest)
 
+#For test data
 print('MSE without intercept '+str(mle))
 print('MSE with intercept '+str(mle_i))
+
+#for training data
+mle = testOLERegression(w,X,y)
+mle_i = testOLERegression(w_i,X_i,y)
+
+print('MSE without intercept for train data '+str(mle))
+print('MSE with intercept train data '+str(mle_i))
 #Calculate MSE for training data and compare
 # # Problem 3
 k = 101
@@ -273,6 +281,16 @@ for lambd in lambdas:
     mses3_train[i] = testOLERegression(w_l,X_i,y)
     mses3[i] = testOLERegression(w_l,Xtest_i,ytest)
     i = i + 1
+# print("lambdas"," ","mse train","            ","mse test")
+# minVal_train = mses3_train[0][1]
+# minVal_test = mses3[0][1]
+# for i in range(101):
+#     if(minVal_train>mses3_train[i][0]):
+#         minVal_train = mses3_train[i][0]
+#     if(minVal_test>mses3[i][0]):
+#         minVal_test = mses3[i][0]
+# print(lambdas[i]," ",mses3_train[i][0]," ",mses3[i][0])
+# print(minVal_train,minVal_test)
 fig = plt.figure(figsize=[12,6])
 plt.subplot(1, 2, 1)
 plt.plot(lambdas,mses3_train)
@@ -298,6 +316,11 @@ for lambd in lambdas:
     mses4_train[i] = testOLERegression(w_l,X_i,y)
     mses4[i] = testOLERegression(w_l,Xtest_i,ytest)
     i = i + 1
+# print("lambda"," ","MSE train"," ","MSE test")
+# for i in range(50,101):
+#     print(lambdas[i]," ",mses4_train[i][0]," ",mses4[i][0])
+# print(" ",mses4_train," ",mses4)
+# print(minVal_train,minVal_test)
 fig = plt.figure(figsize=[12,6])
 plt.subplot(1, 2, 1)
 plt.plot(lambdas,mses4_train)
@@ -315,7 +338,7 @@ plt.show()
 
 # # Problem 5
 pmax = 7
-lambda_opt = 0 # REPLACE THIS WITH lambda_opt estimated from Problem 3
+lambda_opt = 0.06 # REPLACE THIS WITH lambda_opt estimated from Problem 3
 mses5_train = np.zeros((pmax,2))
 mses5 = np.zeros((pmax,2))
 for p in range(pmax):
@@ -329,6 +352,9 @@ for p in range(pmax):
     mses5[p,1] = testOLERegression(w_d2,Xdtest,ytest)
 
 fig = plt.figure(figsize=[12,6])
+# print("p" , "No Regularization","     Regularization")
+# for i in range(7):
+#     print(i,mses5_train[i][0],mses5_train[i][1])
 plt.subplot(1, 2, 1)
 plt.plot(range(pmax),mses5_train)
 plt.title('MSE for Train Data')
